@@ -1,9 +1,10 @@
 # LRC FILE Crawler (실시간 가사 or 싱크 가사 다운)
 
-
 벅스(BUGS MUSIC)를 통해 실시간 가사를 한꺼번에 크롤링하여 각각의 lrc파일로 만들어주는 파이썬 파일입니다.
 
 안드로이드 오레오 삼성뮤직에서 정상적으로 적용됩니다.
+
+<img src="https://user-images.githubusercontent.com/44944839/48315668-8898fb00-e61c-11e8-8804-3c21c558be00.jpg" width="300px"></img>
 
 #### ● 필수 install 모음
 ```
