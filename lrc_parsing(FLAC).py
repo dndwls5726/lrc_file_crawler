@@ -111,12 +111,14 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                     track_albumid.clear()
                     track_artistid.clear()
                     track_trackid.clear()
+                    os.remove('%s.lrc' % available_file[i].replace(".flac", ""))
 
             else:  # 싱크 가사 없을 때,
                 print("%s 은(는) 싱크가사를 지원하지 않습니다." % available_file[i])
                 track_albumid.clear()
                 track_artistid.clear()
                 track_trackid.clear()
+                os.remove('%s.lrc' % available_file[i].replace(".flac", ""))
 
         else:
             print("%s에 대한 검색 결과가 없습니다."%available_file[i])
