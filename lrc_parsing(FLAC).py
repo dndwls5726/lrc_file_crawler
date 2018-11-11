@@ -39,9 +39,12 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
         soup_album = BeautifulSoup(requests.get('https://music.bugs.co.kr/search/album?q=%s %s' % (available_artist[i], available_album[i])).text, 'html.parser')
         soup_track = BeautifulSoup(requests.get('https://music.bugs.co.kr/search/track?q=%s %s' % (available_artist[i], available_title[i])).text, 'html.parser')
 
-        for id in soup_artist.select('#container > section > div > ul > li:nth-of-type(1) > figure > figcaption > a.artistTitle'):  # 아티스트 결과
-            artist_artistid = id['href'][32:-25]
-            #print(artist_artistid)
+        if soup_artist.select('#container > section > div > ul > li:nth-of-type(1) > figure > figcaption > a.artistTitle'):
+            for id in soup_artist.select('#container > section > div > ul > li:nth-of-type(1) > figure > figcaption > a.artistTitle'):  # 아티스트 결과
+                artist_artistid = id['href'][32:-25]
+        else:
+            print("%s에 대한 검색 결과가 없습니다."%available_file[i])
+            continue
             
         if soup_album.select('#container > section > div > ul > li:nth-of-type(1) > figure'):
             for id in soup_album.select('#container > section > div > ul > li:nth-of-type(1) > figure'):  # 앨범검색 결과
