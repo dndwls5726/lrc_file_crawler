@@ -20,7 +20,6 @@ mm=[]
 ss=[]
 xx=[]
 
-
 for file in glob.glob("*.flac"):  # flac파일 개수 파악
     FILE_LIST.append(file)
 
@@ -34,7 +33,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
             available_artist.append(FILE_TAG_LIST['artist'][0])
         else:
             print("%s의 태그가 없습니다." % FILE_LIST[i])
-
+            
     for i in range(0, len(available_file)):
         soup_artist = BeautifulSoup(requests.get('https://music.bugs.co.kr/search/artist?q=%s' % available_artist[i]).text, 'html.parser')
         soup_album = BeautifulSoup(requests.get('https://music.bugs.co.kr/search/album?q=%s %s' % (available_artist[i], available_album[i])).text, 'html.parser')
@@ -43,11 +42,14 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
         for id in soup_artist.select('#container > section > div > ul > li:nth-of-type(1) > figure > figcaption > a.artistTitle'):  # 아티스트 결과
             artist_artistid = id['href'][32:-25]
             #print(artist_artistid)
-
-        for id in soup_album.select('#container > section > div > ul > li:nth-of-type(1) > figure'):  # 앨범검색 결과
-            album_artistid = id['artistid']
-            album_albumid = id['albumid']
-            #print(album_artistid)
+            
+        if soup_album.select('#container > section > div > ul > li:nth-of-type(1) > figure'):
+            for id in soup_album.select('#container > section > div > ul > li:nth-of-type(1) > figure'):  # 앨범검색 결과
+                album_artistid = id['artistid']
+                album_albumid = id['albumid']
+        else:
+            print("%s에 대한 검색 결과가 없습니다."%available_file[i])
+            continue
 
         for id in soup_track.find_all("tr"):
             if id.get('artistid'):
