@@ -21,6 +21,8 @@ LYRICS =[]
 mm=[]
 ss=[]
 xx=[]
+success=0
+fail=0
 
 for file in glob.glob("*.flac"):  # flac파일 개수 파악
     FILE_LIST.append(file)
@@ -41,6 +43,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                 available_second_artist.append('')
         else:
             print("%s의 태그가 없습니다." % FILE_LIST[i])
+            fail += 1
 
     for i in range(0, len(available_file)):
         if available_second_artist[i] == '':
@@ -58,6 +61,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                     artist_artistid = id['href'][32:-25]
             else:
                 print("%s에 대한 검색 결과가 없습니다." % available_file[i])
+                fail += 1
                 continue
         else:
             if soup_first_artist.select('#container > section > div > ul > li:nth-of-type(1) > figure > figcaption > a.artistTitle'):
@@ -65,6 +69,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                     artist_first_artistid = id['href'][32:-25]
             else:
                 print("%s에 대한 검색 결과가 없습니다." % available_file[i])
+                fail += 1
                 continue
 
             if soup_second_artist.select('#container > section > div > ul > li:nth-of-type(1) > figure > figcaption > a.artistTitle'):
@@ -72,6 +77,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                     artist_second_artistid = id['href'][32:-25]
             else:
                 print("%s에 대한 검색 결과가 없습니다." % available_file[i])
+                fail += 1
                 continue
 
         if soup_album.select('#container > section > div > ul > li:nth-of-type(1) > figure'):
@@ -80,6 +86,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                 album_albumid = id['albumid']
         else:
             print("%s에 대한 검색 결과가 없습니다."%available_file[i])
+            fail += 1
             continue
 
         for id in soup_track.find_all("tr"):
@@ -138,10 +145,12 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                         track_trackid.clear()
                         TIME.clear()
                         del TEXT
-                        print("%s. %s의 lrc파일 가져왔습니다." % (i, available_file[i]))
+                        print("%s. %s의 lrc파일을 가져왔습니다." % (i, available_file[i]))
+                        success += 1
 
                     else:  # time이 없을 때,
                         print("%s 은(는) 싱크가사를 지원하지 않습니다." % available_file[i])
+                        fail += 1
                         track_albumid.clear()
                         track_artistid.clear()
                         track_trackid.clear()
@@ -149,12 +158,14 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
 
                 else:  # 싱크 가사 없을 때,
                     print("%s 은(는) 싱크가사를 지원하지 않습니다." % available_file[i])
+                    fail += 1
                     track_albumid.clear()
                     track_artistid.clear()
                     track_trackid.clear()
                     os.remove('%s.lrc' % available_file[i].replace(".flac", ""))
             else:
                 print("%s에 대한 검색 결과가 없습니다." % available_file[i])
+                fail += 1
                 track_albumid.clear()
                 track_artistid.clear()
                 track_trackid.clear()
@@ -207,10 +218,12 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                         track_trackid.clear()
                         TIME.clear()
                         del TEXT
-                        print("%s. %s의 lrc파일 가져왔습니다." % (i, available_file[i]))
+                        print("%s. %s의 lrc파일을 가져왔습니다." % (i, available_file[i]))
+                        success += 1
 
                     else:  # time이 없을 때,
                         print("%s 은(는) 싱크가사를 지원하지 않습니다." % available_file[i])
+                        fail += 1
                         track_albumid.clear()
                         track_artistid.clear()
                         track_trackid.clear()
@@ -218,6 +231,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
 
                 else:  # 싱크 가사 없을 때,
                     print("%s 은(는) 싱크가사를 지원하지 않습니다." % available_file[i])
+                    fail += 1
                     track_albumid.clear()
                     track_artistid.clear()
                     track_trackid.clear()
@@ -270,10 +284,12 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                         track_trackid.clear()
                         TIME.clear()
                         del TEXT
-                        print("%s. %s의 lrc파일 가져왔습니다." % (i, available_file[i]))
+                        print("%s. %s의 lrc파일을 가져왔습니다." % (i, available_file[i]))
+                        success += 1
 
                     else:  # time이 없을 때,
                         print("%s 은(는) 싱크가사를 지원하지 않습니다." % available_file[i])
+                        fail += 1
                         track_albumid.clear()
                         track_artistid.clear()
                         track_trackid.clear()
@@ -281,6 +297,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
 
                 else:  # 싱크 가사 없을 때,
                     print("%s 은(는) 싱크가사를 지원하지 않습니다." % available_file[i])
+                    fail += 1
                     track_albumid.clear()
                     track_artistid.clear()
                     track_trackid.clear()
@@ -288,11 +305,15 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
 
             else:
                 print("%s에 대한 검색 결과가 없습니다." % available_file[i])
+                fail += 1
                 track_albumid.clear()
                 track_artistid.clear()
                 track_trackid.clear()
     if i == len(available_file)-1:
-        print("========LRC파일 다운을 완료하였습니다========")
+        print("============완료============")
+        print("가져온 lrc파일 수 : %s 개"% success)
+        print("실패한 곡 수 : %s 개"% fail)
+        print("============================")
 
 else:  # flac파일이 없을 때
     print("==========ERROR===========")
