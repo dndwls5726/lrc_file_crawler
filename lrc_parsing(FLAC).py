@@ -16,7 +16,6 @@ available_title = []
 track_artistid = []
 track_albumid = []
 track_trackid = []
-track_trackname = []
 TIME = []
 LYRICS = []
 mm = []
@@ -189,7 +188,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                 urllib.request.urlretrieve('http://api.bugs.co.kr/3/tracks/%s/lyrics' % track_trackid[n],"%s.lrc" % available_file[i].replace(".flac", ""))
                 with open('%s.lrc' % available_file[i].replace(".flac", ""), encoding='UTF8') as json_file:
                     data = json.load(json_file)
-                if data['result'] != None:  # 싱크 가사 있을 때,
+                if data['result'] is not None:  # 싱크 가사 있을 때,
                     if "|" in data['result']['lyrics']:  # time이 있을 때,
                         lrc_maker()
                     else:  # time이 없을 때,
