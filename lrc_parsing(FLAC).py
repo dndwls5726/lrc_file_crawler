@@ -136,6 +136,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                         track_albumid.clear()
                         track_artistid.clear()
                         track_trackid.clear()
+                        TIME.clear()
                         del TEXT
                         print("%s. %s의 lrc파일 가져왔습니다." % (i, available_file[i]))
 
@@ -204,6 +205,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                         track_albumid.clear()
                         track_artistid.clear()
                         track_trackid.clear()
+                        TIME.clear()
                         del TEXT
                         print("%s. %s의 lrc파일 가져왔습니다." % (i, available_file[i]))
 
@@ -266,6 +268,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                         track_albumid.clear()
                         track_artistid.clear()
                         track_trackid.clear()
+                        TIME.clear()
                         del TEXT
                         print("%s. %s의 lrc파일 가져왔습니다." % (i, available_file[i]))
 
