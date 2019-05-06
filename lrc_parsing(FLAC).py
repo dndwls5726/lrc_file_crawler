@@ -168,7 +168,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
         if available_second_artist[i] == '':
             if artist_artistid == album_artistid and artist_artistid in track_artistid:
                 n = track_artistid.index(artist_artistid)
-                urllib.request.urlretrieve('http://api.bugs.co.kr/3/tracks/%s/lyrics' % track_trackid[n],"%s.lrc" % available_file[i].replace(".flac", ""))
+                urllib.request.urlretrieve('http://api.bugs.co.kr/3/tracks/%s/lyrics?&api_key=b2de0fbe3380408bace96a5d1a76f800' % track_trackid[n],"%s.lrc" % available_file[i].replace(".flac", ""))
                 with open('%s.lrc' % available_file[i].replace(".flac", ""), encoding='UTF8') as json_file:
                     data = json.load(json_file)
                 if data['result'] is not None:  # 싱크 가사 있을 때,
@@ -185,7 +185,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
         else:
             if artist_first_artistid == album_artistid and artist_second_artistid in track_artistid:
                 n = track_artistid.index(artist_second_artistid)
-                urllib.request.urlretrieve('http://api.bugs.co.kr/3/tracks/%s/lyrics' % track_trackid[n],"%s.lrc" % available_file[i].replace(".flac", ""))
+                urllib.request.urlretrieve('http://api.bugs.co.kr/3/tracks/%s/lyrics?&api_key=b2de0fbe3380408bace96a5d1a76f800' % track_trackid[n],"%s.lrc" % available_file[i].replace(".flac", ""))
                 with open('%s.lrc' % available_file[i].replace(".flac", ""), encoding='UTF8') as json_file:
                     data = json.load(json_file)
                 if data['result'] is not None:  # 싱크 가사 있을 때,
@@ -197,7 +197,7 @@ if len(FILE_LIST) != 0:  # FLAC 곡이 있는지 확인하기
                     lrc_delete()
             elif artist_first_artistid == album_artistid and artist_first_artistid in track_artistid:
                 n = track_artistid.index(artist_first_artistid)
-                urllib.request.urlretrieve('http://api.bugs.co.kr/3/tracks/%s/lyrics' % track_trackid[n],"%s.lrc" % available_file[i].replace(".flac", ""))
+                urllib.request.urlretrieve('http://api.bugs.co.kr/3/tracks/%s/lyrics?&api_key=b2de0fbe3380408bace96a5d1a76f800' % track_trackid[n],"%s.lrc" % available_file[i].replace(".flac", ""))
                 with open('%s.lrc' % available_file[i].replace(".flac", ""), encoding='UTF8') as json_file:
                     data = json.load(json_file)
                 if data['result'] is not None:  # 싱크 가사 있을 때,
